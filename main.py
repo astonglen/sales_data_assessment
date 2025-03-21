@@ -103,44 +103,29 @@ def load_data_to_sqlite(csv_file, db_path, table_name="sales_data"):
 def validate_data():
     print("\nRunning data validation...")
 
-    #a Count the total number of records
+    # Load SQL queries from the external file
+    with open("SQLqueries.sql", "r") as file:
+        queries = file.read().split(";")
+
+    # a) Count the total number of records
     print("\nTotal number of records:")
-    query = "SELECT COUNT(*) AS total_records FROM sales_data;"
-    total_records = run_query(query)
+    total_records = run_query(queries[0])
     print(f"Total records: {total_records[0][0]}")
 
-    #b Find the total sales amount by region
+    # b) Total sales by region
     print("\nTotal sales amount by region:")
-    query = """
-    SELECT region, SUM(net_sale) AS total_sales
-    FROM sales_data
-    GROUP BY region;
-    """
-    region_sales = run_query(query)
+    region_sales = run_query(queries[1])
     for region, sales in region_sales:
         print(f"Region {region}: {sales}")
 
-    #c Find the average sales amount per transaction
+    # c) Average sales per transaction
     print("\nAverage sales amount per transaction:")
-    query = """
-    SELECT AVG(net_sale) AS avg_sales_per_transaction
-    FROM sales_data;
-    """
-    avg_sales = run_query(query)
+    avg_sales = run_query(queries[2])
     print(f"Average sales per transaction: {avg_sales[0][0]}")
 
-    # d) Ensure there are no duplicate OrderId values (with the same region)
+    # d) Check for duplicate OrderId values
     print("\nChecking for duplicate OrderId values within the same region:")
-    query = """
-    SELECT 
-        OrderId, 
-        region, 
-        COUNT(*) AS occurrences
-    FROM sales_data
-    GROUP BY OrderId, region
-    HAVING occurrences > 1;
-    """
-    duplicates = run_query(query)
+    duplicates = run_query(queries[3])
 
     if duplicates:
         print("\nDuplicates found:")
