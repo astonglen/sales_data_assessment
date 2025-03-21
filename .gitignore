@@ -1,0 +1,51 @@
+# Ignore virtual environment
+.venv/
+env/
+venv/
+
+# Ignore PyCharm project settings
+.idea/
+
+# Ignore compiled Python files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+
+# Ignore SQLite database files
+*.db
+*.sqlite3
+
+# Ignore CSV and other data files
+*.csv
+*.tsv
+*.log
+*.bak
+
+# Ignore Jupyter Notebook checkpoints (if applicable)
+.ipynb_checkpoints/
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore log and cache files
+*.log
+*.cache
+
+# Ignore environment and secret configuration files
+.env
+*.env
+.env.*
+
+# Ignore build artifacts
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Ignore coverage reports
+.coverage
+*.cover
+*.cov
